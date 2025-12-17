@@ -1,356 +1,130 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>পাগলা দিশা দিদি | Cyberpunk Neon</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>পাগলা দিশা দিদি — AI Cyber Universe</title>
 
-  <!-- ================== STYLE ================== -->
-  <style>
-    :root{
-      --bg:#07090f;
-      --neon-cyan:#00fff0;
-      --neon-pink:#ff00ff;
-      --neon-green:#7cff00;
-      --text:#e7f7ff;
-      --muted:#9bb3c9;
-      --card:#0c1022;
-      --glow: 0 0 10px rgba(0,255,240,.7), 0 0 25px rgba(0,255,240,.45);
-    }
+<style>
+:root{
+  --bg:#07090f;
+  --neon1:#00fff0;
+  --neon2:#ff00ff;
+  --neon3:#7cff00;
+  --card:#0c1022;
+  --text:#e7f7ff;
+  --muted:#9bb3c9;
+  --glow:0 0 10px rgba(0,255,240,.7),0 0 25px rgba(0,255,240,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:radial-gradient(1200px 600px at 10% -10%, #121a3a 0%, var(--bg) 60%),var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,Arial,sans-serif;cursor:none}
 
-    *{box-sizing:border-box}
+/* === Animated Grid === */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(transparent 95%,rgba(0,255,240,.08) 96%),linear-gradient(90deg,transparent 95%,rgba(255,0,255,.08) 96%);background-size:40px 40px;opacity:.35;animation:drift 18s linear infinite}
+@keyframes drift{to{background-position:40px 40px,-40px -40px}}
 
-    html,body{
-      margin:0;padding:0;
-      background:
-        radial-gradient(1200px 600px at 10% -10%, #121a3a 0%, var(--bg) 60%),
-        var(--bg);
-      color:var(--text);
-      font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
-      overflow-x:hidden;
-      cursor:none;
-    }
+/* === Neon Cursor === */
+.cursor{position:fixed;width:18px;height:18px;border-radius:50%;background:var(--neon1);box-shadow:var(--glow);transform:translate(-50%,-50%);pointer-events:none;z-index:9999}
 
-    /* ===== Animated Cyber Grid Background ===== */
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background-image:
-        linear-gradient(transparent 95%, rgba(0,255,240,.08) 96%),
-        linear-gradient(90deg, transparent 95%, rgba(255,0,255,.08) 96%);
-      background-size:40px 40px;
-      mix-blend-mode:screen;
-      opacity:.45;
-      animation:drift 18s linear infinite;
-      z-index:0;
-    }
+header{text-align:center;padding:70px 20px}
+.badge{display:inline-block;padding:6px 14px;border-radius:999px;background:linear-gradient(90deg,var(--neon2),var(--neon1));color:#000;font-weight:800;letter-spacing:.15em;box-shadow:var(--glow)}
 
-    @keyframes drift{
-      to{background-position:40px 40px,-40px -40px}
-    }
+h1{margin:20px 0 10px;font-size:clamp(2.4rem,6vw,4.4rem);letter-spacing:.15em;text-shadow:0 0 18px rgba(0,255,240,.6)}
 
-    /* ===== Neon Cursor ===== */
-    .cursor{
-      position:fixed;
-      width:18px;height:18px;
-      border-radius:50%;
-      pointer-events:none;
-      background:var(--neon-cyan);
-      box-shadow:var(--glow);
-      transform:translate(-50%,-50%);
-      z-index:9999;
-    }
+.glitch{position:relative}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;opacity:.7}
+.glitch::before{color:var(--neon2);transform:translate(2px,-1px)}
+.glitch::after{color:var(--neon1);transform:translate(-2px,1px)}
 
-    header{position:relative;text-align:center;padding:80px 20px 60px;z-index:1}
+.subtitle{color:var(--muted)}
 
-    .badge{
-      display:inline-block;
-      padding:6px 12px;
-      border-radius:999px;
-      background:linear-gradient(90deg,var(--neon-pink),var(--neon-cyan));
-      color:#000;
-      font-weight:700;
-      letter-spacing:.12em;
-      box-shadow:var(--glow);
-    }
+section{max-width:1100px;margin:auto;padding:70px 20px}
+section h2{text-align:center;letter-spacing:.25em;color:var(--neon1);text-shadow:var(--glow)}
 
-    h1{
-      margin:18px 0 8px;
-      font-size:clamp(2.2rem,6vw,4.2rem);
-      letter-spacing:.18em;
-      text-shadow:0 0 18px rgba(0,255,240,.6),0 0 32px rgba(255,0,255,.35);
-    }
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01)),var(--card);border-radius:18px;padding:20px;box-shadow:0 0 0 1px rgba(124,255,0,.15),0 12px 40px rgba(0,0,0,.6)}
 
-    .glitch{position:relative}
-    .glitch::before,.glitch::after{
-      content:attr(data-text);
-      position:absolute;left:0;top:0;width:100%;opacity:.8
-    }
-    .glitch::before{color:var(--neon-pink);transform:translate(2px,-1px);mix-blend-mode:screen}
-    .glitch::after{color:var(--neon-cyan);transform:translate(-2px,1px);mix-blend-mode:screen}
+.age{font-size:3rem;font-weight:900;background:linear-gradient(90deg,var(--neon3),var(--neon1));-webkit-background-clip:text;background-clip:text;color:transparent}
 
-    nav{margin-top:30px;display:flex;justify-content:center;gap:22px}
-    nav a{color:var(--text);text-decoration:none;letter-spacing:.2em;position:relative}
-    nav a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--neon-cyan);box-shadow:var(--glow);transition:.3s}
-    nav a:hover::after{width:100%}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.gallery div{height:160px;border-radius:16px;background:linear-gradient(135deg,var(--neon2),var(--neon1));box-shadow:var(--glow)}
 
-    section{max-width:1100px;margin:0 auto;padding:80px 20px;position:relative;z-index:1}
-    section h2{text-align:center;margin-bottom:40px;letter-spacing:.3em;color:var(--neon-cyan);text-shadow:var(--glow)}
+/* === CHAT === */
+#chatBox{background:#050814;border-radius:16px;padding:16px;height:260px;overflow-y:auto;border:1px solid var(--neon2)}
+#controls{display:flex;gap:10px;margin-top:10px}
+input,select,button{padding:12px;border-radius:10px;border:none;font-size:14px}
+input,select{flex:1;background:#0b1025;color:var(--text)}
+button{background:linear-gradient(90deg,var(--neon1),var(--neon2));font-weight:900;cursor:pointer}
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
-
-    .card{
-      background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01)),var(--card);
-      border-radius:18px;
-      padding:18px;
-      box-shadow:0 0 0 1px rgba(124,255,0,.15),0 12px 40px rgba(0,0,0,.5);
-      position:relative;overflow:hidden
-    }
-
-    .card::after{
-      content:"";
-      position:absolute;inset:-1px;border-radius:18px;
-      background:linear-gradient(120deg,transparent 30%,rgba(0,255,240,.35),transparent 60%);
-      opacity:.35
-    }
-
-    .age{
-      font-size:3rem;font-weight:900;
-      background:linear-gradient(90deg,var(--neon-green),var(--neon-cyan));
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      text-shadow:0 0 18px rgba(124,255,0,.6)
-    }
-
-    footer{text-align:center;padding:40px 20px;color:var(--muted);position:relative;z-index:1}
-  </style>
+footer{text-align:center;padding:40px;color:var(--muted)}
+</style>
 </head>
 <body>
 
-  <!-- Neon Cursor -->
-  <div class="cursor"></div>
+<div class="cursor"></div>
 
-  <!-- Background Music -->
-  <audio autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_2f2e0e33c7.mp3" type="audio/mpeg">
-  </audio>
+<header>
+  <span class="badge">AI CYBER LEGEND</span>
+  <h1 class="glitch" data-text="পাগলা দিশা দিদি">পাগলা দিশা দিদি</h1>
+  <p class="subtitle">৯৯ বছর বয়স • পাগলামি ∞ • Artificial Intelligence দিদি</p>
+</header>
 
-  <!-- ================== HEADER ================== -->
-  <header>
-    <span class="badge">CYBERPUNK LEGEND</span>
-    <h1 class="glitch" data-text="পাগলা দিশা দিদি">পাগলা দিশা দিদি</h1>
-    <p>৯৯ বছর বয়স, কিন্তু এখনো পুরো pagla ভাইব 🔥</p>
+<section>
+<h2>ABOUT</h2>
+<div class="grid">
+  <div class="card"><h3>বয়স</h3><div class="age">৯৯</div></div>
+  <div class="card"><h3>মুড ইঞ্জিন</h3><p>Funny • Angry • Wise</p></div>
+  <div class="card"><h3>ক্ষমতা</h3><p>কথা বলে • মনে রাখে • শেখে</p></div>
+</div>
+</section>
 
-    <nav>
-      <a href="#about">ABOUT</a>
-      <a href="#gallery">GALLERY</a>
-      <a href="#lore">LORE</a>
-    </nav>
-  </header>
+<section>
+<h2>GALLERY</h2>
+<div class="gallery">
+  <div></div><div></div><div></div><div></div><div></div><div></div>
+</div>
+</section>
 
-  <!-- ================== ABOUT ================== -->
-  <section id="about">
-    <h2>ABOUT</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>বয়স</h3>
-        <div class="age">৯৯</div>
-        <p>সময়কে হার মানানো এক জীবন্ত লেজেন্ড।</p>
-      </div>
-      <div class="card">
-        <h3>পাগলামি লেভেল</h3>
-        <p>১০০/১০০ — ম্যাট্রিক্স পর্যন্ত ভয় পায় 😵‍💫</p>
-      </div>
-      <div class="card">
-        <h3>এনার্জি সোর্স</h3>
-        <p>নিয়ন আলো, হাসি আর এক চিমটি পাগলামি।</p>
-      </div>
-    </div>
-  </section>
+<section>
+<h2>AI CHAT</h2>
+<div class="card">
+  <div id="chatBox"></div>
+  <div id="controls">
+    <select id="mood">
+      <option value="funny">😆 Funny</option>
+      <option value="angry">😡 Angry</option>
+      <option value="wise">🧠 Wise</option>
+    </select>
+    <input id="msg" placeholder="দিদি, কিছু বলো..." />
+    <button onclick="send()">SEND</button>
+  </div>
+</div>
+</section>
 
-  <!-- ================== GALLERY ================== -->
-  <section id="gallery">
-    <h2>GALLERY</h2>
-    <div class="gallery">
-      <div></div><div></div><div></div><div></div><div></div><div></div>
-    </div>
-  </section>
+<footer>
+© Pagla Disha Didi Universe ♾️
+</footer>
 
-  <!-- ================== LORE ================== -->
-  <section id="lore">
-    <h2>LORE</h2>
-    <p class="lore">
-      বলা হয়, ২০৯৯ সালের আগেই দিশা দিদি নিয়ন শহরের আত্মার সাথে মিশে গেছেন।<br>
-      রাতে যখন আলো ঝিলমিল করে, তখনই শোনা যায় তার হাসি।<br><br>
-      তিনি শুধু একজন মানুষ নন — তিনি একটি ভাইব, একটি লেজেন্ড, একটি Cyberpunk মিথ।
-    </p>
-  </section>
+<script>
+/* Cursor */
+const cursor=document.querySelector('.cursor');
+document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
 
-  <!-- ================== AI DIDI CHAT ================== -->
-  <section id="ai-didi">
-    <h2>AI দিশা দিদি</h2>
-    <div class="card" style="max-width:700px;margin:0 auto">
-      <div id="chatBox" style="height:260px;overflow-y:auto;font-size:0.95rem;line-height:1.6"></div>
-      <div style="display:flex;gap:10px;margin-top:12px">
-        <input id="userInput" placeholder="দিদি, কিছু বলো..." style="flex:1;padding:12px;border-radius:12px;border:none;outline:none;background:#050814;color:var(--text)" />
-        <button id="sendBtn" class="btn">SEND</button>
-      </div>
-    </div>
-  </section>
+/* Chat */
+function send(){
+ const msg=document.getElementById('msg').value;
+ const mood=document.getElementById('mood').value;
+ if(!msg)return;
 
-  <footer>
-    © 2099 পাগলা দিশা দিদি • Cyberpunk Forever
-  </footer>
+ document.getElementById('chatBox').innerHTML+=`<p>🧑‍💻 ${msg}</p>`;
+ fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user:'guest',message:msg,mood:mood})})
+ .then(r=>r.json()).then(d=>{
+  document.getElementById('chatBox').innerHTML+=`<p>🤖 ${d.reply}</p>`;
+  new Audio('/static/didi.mp3').play();
+ });
+ document.getElementById('msg').value='';
+}
+</script>
 
-  <!-- ================== SCRIPT ================== -->
-  <script>
-    const cursor=document.querySelector('.cursor');
-    document.addEventListener('mousemove',e=>{
-      cursor.style.left=e.clientX+'px';
-      cursor.style.top=e.clientY+'px';
-    });
-      /* ================= AI DIDI CHAT LOGIC ================= */
-    const chatBox = document.getElementById('chatBox');
-    const userInput = document.getElementById('userInput');
-    const sendBtn = document.getElementById('sendBtn');
-
-    const didiReplies = [
-      "😎 আমি দিশা দিদি। ভয় নাই, সব ঠিক হয়ে যাবে।",
-      "⚡ পাগলামি ছাড়া লাইফ একদম ফাঁকা!",
-      "🌌 এই শহরটা আমার ভাইবে চলে।",
-      "😂 এত চিন্তা করিস না, হেসে নে।",
-      "🚀 তুই অনেক দূর যাবি, আমি জানি।",
-      "👁️ ম্যাট্রিক্স তোর দিকে তাকিয়ে আছে…"
-    ];
-
-    function addMessage(text, sender){
-      const msg = document.createElement('div');
-      msg.style.margin = '6px 0';
-      msg.innerHTML = sender === 'user'
-        ? `<span style="color:#7cff00">🧑‍💻 তুমি:</span> ${text}`
-        : `<span style="color:#00fff0">🤖 দিশা দিদি:</span> ${text}`;
-      chatBox.appendChild(msg);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    sendBtn.onclick = () => {
-      const text = userInput.value.trim();
-      if(!text) return;
-      addMessage(text,'user');
-      userInput.value='';
-      setTimeout(()=>{
-        const reply = didiReplies[Math.floor(Math.random()*didiReplies.length)];
-        addMessage(reply,'didi');
-      },600);
-    };
-
-    userInput.addEventListener('keypress',e=>{
-      if(e.key==='Enter') sendBtn.click();
-    });
-  </script>
-
-  
-  <!-- ===== EXTRA EFFECT LAYERS ===== -->
-  <canvas id="matrix"></canvas>
-  <canvas id="particles"></canvas>
-
-  <!-- ===== EFFECT SCRIPTS ===== -->
-  <script>
-    /* ================= MATRIX NEON RAIN ================= */
-    const matrix = document.getElementById('matrix');
-    const mctx = matrix.getContext('2d');
-    function resizeMatrix(){
-      matrix.width = window.innerWidth;
-      matrix.height = window.innerHeight;
-    }
-    resizeMatrix();
-    window.addEventListener('resize', resizeMatrix);
-
-    const letters = '01パグラディシャ';
-    const fontSize = 16;
-    let columns = Math.floor(matrix.width / fontSize);
-    let drops = Array(columns).fill(1);
-
-    function drawMatrix(){
-      mctx.fillStyle = 'rgba(7,9,15,0.08)';
-      mctx.fillRect(0,0,matrix.width,matrix.height);
-      mctx.fillStyle = '#00fff0';
-      mctx.font = fontSize+'px monospace';
-      for(let i=0;i<drops.length;i++){
-        const text = letters[Math.floor(Math.random()*letters.length)];
-        mctx.fillText(text, i*fontSize, drops[i]*fontSize);
-        if(drops[i]*fontSize > matrix.height && Math.random() > 0.975){ drops[i]=0; }
-        drops[i]++;
-      }
-    }
-    setInterval(drawMatrix, 50);
-
-    /* ================= FLOATING PARTICLES ================= */
-    const particles = document.getElementById('particles');
-    const pctx = particles.getContext('2d');
-    function resizeParticles(){
-      particles.width = window.innerWidth;
-      particles.height = window.innerHeight;
-    }
-    resizeParticles();
-    window.addEventListener('resize', resizeParticles);
-
-    const mouse = {x:null,y:null};
-    document.addEventListener('mousemove',e=>{mouse.x=e.x;mouse.y=e.y});
-
-    let pts = Array.from({length:80},()=>({
-      x:Math.random()*particles.width,
-      y:Math.random()*particles.height,
-      vx:(Math.random()-.5)*0.6,
-      vy:(Math.random()-.5)*0.6
-    }));
-
-    function drawParticles(){
-      pctx.clearRect(0,0,particles.width,particles.height);
-      pts.forEach(p=>{
-        p.x+=p.vx; p.y+=p.vy;
-        if(p.x<0||p.x>particles.width) p.vx*=-1;
-        if(p.y<0||p.y>particles.height) p.vy*=-1;
-        pctx.fillStyle='#ff00ff';
-        pctx.beginPath(); pctx.arc(p.x,p.y,2,0,Math.PI*2); pctx.fill();
-        if(mouse.x){
-          const dx=p.x-mouse.x, dy=p.y-mouse.y;
-          const dist=Math.sqrt(dx*dx+dy*dy);
-          if(dist<120){ pctx.strokeStyle='rgba(0,255,240,0.4)'; pctx.beginPath(); pctx.moveTo(p.x,p.y); pctx.lineTo(mouse.x,mouse.y); pctx.stroke(); }
-        }
-      });
-      requestAnimationFrame(drawParticles);
-    }
-    drawParticles();
-
-    /* ================= CRT FLICKER ================= */
-    setInterval(()=>{
-      document.body.style.filter = `brightness(${0.98+Math.random()*0.05}) contrast(1.05)`;
-    },120);
-
-    /* ================= MUSIC BEAT SYNC ================= */
-    const audio = document.querySelector('audio');
-    const gallery = document.querySelectorAll('.gallery div');
-    audio.onplay = () => {
-      const ctx = new (window.AudioContext||window.webkitAudioContext)();
-      const src = ctx.createMediaElementSource(audio);
-      const analyser = ctx.createAnalyser();
-      src.connect(analyser);
-      analyser.connect(ctx.destination);
-      analyser.fftSize = 64;
-      const data = new Uint8Array(analyser.frequencyBinCount);
-
-      function beat(){
-        analyser.getByteFrequencyData(data);
-        const avg = data.reduce((a,b)=>a+b,0)/data.length;
-        gallery.forEach(g=>{
-          g.style.boxShadow = `0 0 ${avg/2}px rgba(0,255,240,0.9)`;
-        });
-        requestAnimationFrame(beat);
-      }
-      beat();
-    }
-  </script>
 </body>
 </html>
