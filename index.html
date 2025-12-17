@@ -187,6 +187,18 @@
     </p>
   </section>
 
+  <!-- ================== AI DIDI CHAT ================== -->
+  <section id="ai-didi">
+    <h2>AI দিশা দিদি</h2>
+    <div class="card" style="max-width:700px;margin:0 auto">
+      <div id="chatBox" style="height:260px;overflow-y:auto;font-size:0.95rem;line-height:1.6"></div>
+      <div style="display:flex;gap:10px;margin-top:12px">
+        <input id="userInput" placeholder="দিদি, কিছু বলো..." style="flex:1;padding:12px;border-radius:12px;border:none;outline:none;background:#050814;color:var(--text)" />
+        <button id="sendBtn" class="btn">SEND</button>
+      </div>
+    </div>
+  </section>
+
   <footer>
     © 2099 পাগলা দিশা দিদি • Cyberpunk Forever
   </footer>
@@ -198,7 +210,147 @@
       cursor.style.left=e.clientX+'px';
       cursor.style.top=e.clientY+'px';
     });
+      /* ================= AI DIDI CHAT LOGIC ================= */
+    const chatBox = document.getElementById('chatBox');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    const didiReplies = [
+      "😎 আমি দিশা দিদি। ভয় নাই, সব ঠিক হয়ে যাবে।",
+      "⚡ পাগলামি ছাড়া লাইফ একদম ফাঁকা!",
+      "🌌 এই শহরটা আমার ভাইবে চলে।",
+      "😂 এত চিন্তা করিস না, হেসে নে।",
+      "🚀 তুই অনেক দূর যাবি, আমি জানি।",
+      "👁️ ম্যাট্রিক্স তোর দিকে তাকিয়ে আছে…"
+    ];
+
+    function addMessage(text, sender){
+      const msg = document.createElement('div');
+      msg.style.margin = '6px 0';
+      msg.innerHTML = sender === 'user'
+        ? `<span style="color:#7cff00">🧑‍💻 তুমি:</span> ${text}`
+        : `<span style="color:#00fff0">🤖 দিশা দিদি:</span> ${text}`;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    sendBtn.onclick = () => {
+      const text = userInput.value.trim();
+      if(!text) return;
+      addMessage(text,'user');
+      userInput.value='';
+      setTimeout(()=>{
+        const reply = didiReplies[Math.floor(Math.random()*didiReplies.length)];
+        addMessage(reply,'didi');
+      },600);
+    };
+
+    userInput.addEventListener('keypress',e=>{
+      if(e.key==='Enter') sendBtn.click();
+    });
   </script>
 
+  
+  <!-- ===== EXTRA EFFECT LAYERS ===== -->
+  <canvas id="matrix"></canvas>
+  <canvas id="particles"></canvas>
+
+  <!-- ===== EFFECT SCRIPTS ===== -->
+  <script>
+    /* ================= MATRIX NEON RAIN ================= */
+    const matrix = document.getElementById('matrix');
+    const mctx = matrix.getContext('2d');
+    function resizeMatrix(){
+      matrix.width = window.innerWidth;
+      matrix.height = window.innerHeight;
+    }
+    resizeMatrix();
+    window.addEventListener('resize', resizeMatrix);
+
+    const letters = '01パグラディシャ';
+    const fontSize = 16;
+    let columns = Math.floor(matrix.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    function drawMatrix(){
+      mctx.fillStyle = 'rgba(7,9,15,0.08)';
+      mctx.fillRect(0,0,matrix.width,matrix.height);
+      mctx.fillStyle = '#00fff0';
+      mctx.font = fontSize+'px monospace';
+      for(let i=0;i<drops.length;i++){
+        const text = letters[Math.floor(Math.random()*letters.length)];
+        mctx.fillText(text, i*fontSize, drops[i]*fontSize);
+        if(drops[i]*fontSize > matrix.height && Math.random() > 0.975){ drops[i]=0; }
+        drops[i]++;
+      }
+    }
+    setInterval(drawMatrix, 50);
+
+    /* ================= FLOATING PARTICLES ================= */
+    const particles = document.getElementById('particles');
+    const pctx = particles.getContext('2d');
+    function resizeParticles(){
+      particles.width = window.innerWidth;
+      particles.height = window.innerHeight;
+    }
+    resizeParticles();
+    window.addEventListener('resize', resizeParticles);
+
+    const mouse = {x:null,y:null};
+    document.addEventListener('mousemove',e=>{mouse.x=e.x;mouse.y=e.y});
+
+    let pts = Array.from({length:80},()=>({
+      x:Math.random()*particles.width,
+      y:Math.random()*particles.height,
+      vx:(Math.random()-.5)*0.6,
+      vy:(Math.random()-.5)*0.6
+    }));
+
+    function drawParticles(){
+      pctx.clearRect(0,0,particles.width,particles.height);
+      pts.forEach(p=>{
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>particles.width) p.vx*=-1;
+        if(p.y<0||p.y>particles.height) p.vy*=-1;
+        pctx.fillStyle='#ff00ff';
+        pctx.beginPath(); pctx.arc(p.x,p.y,2,0,Math.PI*2); pctx.fill();
+        if(mouse.x){
+          const dx=p.x-mouse.x, dy=p.y-mouse.y;
+          const dist=Math.sqrt(dx*dx+dy*dy);
+          if(dist<120){ pctx.strokeStyle='rgba(0,255,240,0.4)'; pctx.beginPath(); pctx.moveTo(p.x,p.y); pctx.lineTo(mouse.x,mouse.y); pctx.stroke(); }
+        }
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    /* ================= CRT FLICKER ================= */
+    setInterval(()=>{
+      document.body.style.filter = `brightness(${0.98+Math.random()*0.05}) contrast(1.05)`;
+    },120);
+
+    /* ================= MUSIC BEAT SYNC ================= */
+    const audio = document.querySelector('audio');
+    const gallery = document.querySelectorAll('.gallery div');
+    audio.onplay = () => {
+      const ctx = new (window.AudioContext||window.webkitAudioContext)();
+      const src = ctx.createMediaElementSource(audio);
+      const analyser = ctx.createAnalyser();
+      src.connect(analyser);
+      analyser.connect(ctx.destination);
+      analyser.fftSize = 64;
+      const data = new Uint8Array(analyser.frequencyBinCount);
+
+      function beat(){
+        analyser.getByteFrequencyData(data);
+        const avg = data.reduce((a,b)=>a+b,0)/data.length;
+        gallery.forEach(g=>{
+          g.style.boxShadow = `0 0 ${avg/2}px rgba(0,255,240,0.9)`;
+        });
+        requestAnimationFrame(beat);
+      }
+      beat();
+    }
+  </script>
 </body>
 </html>
