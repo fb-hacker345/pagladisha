@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>পাগলা দিশা দিদি | Cyberpunk Neon</title>
+
+  <!-- ================== STYLE ================== -->
+  <style>
+    :root{
+      --bg:#07090f;
+      --neon-cyan:#00fff0;
+      --neon-pink:#ff00ff;
+      --neon-green:#7cff00;
+      --text:#e7f7ff;
+      --muted:#9bb3c9;
+      --card:#0c1022;
+      --glow: 0 0 10px rgba(0,255,240,.7), 0 0 25px rgba(0,255,240,.45);
+    }
+
+    *{box-sizing:border-box}
+
+    html,body{
+      margin:0;padding:0;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #121a3a 0%, var(--bg) 60%),
+        var(--bg);
+      color:var(--text);
+      font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+      overflow-x:hidden;
+      cursor:none;
+    }
+
+    /* ===== Animated Cyber Grid Background ===== */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(transparent 95%, rgba(0,255,240,.08) 96%),
+        linear-gradient(90deg, transparent 95%, rgba(255,0,255,.08) 96%);
+      background-size:40px 40px;
+      mix-blend-mode:screen;
+      opacity:.45;
+      animation:drift 18s linear infinite;
+      z-index:0;
+    }
+
+    @keyframes drift{
+      to{background-position:40px 40px,-40px -40px}
+    }
+
+    /* ===== Neon Cursor ===== */
+    .cursor{
+      position:fixed;
+      width:18px;height:18px;
+      border-radius:50%;
+      pointer-events:none;
+      background:var(--neon-cyan);
+      box-shadow:var(--glow);
+      transform:translate(-50%,-50%);
+      z-index:9999;
+    }
+
+    header{position:relative;text-align:center;padding:80px 20px 60px;z-index:1}
+
+    .badge{
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--neon-pink),var(--neon-cyan));
+      color:#000;
+      font-weight:700;
+      letter-spacing:.12em;
+      box-shadow:var(--glow);
+    }
+
+    h1{
+      margin:18px 0 8px;
+      font-size:clamp(2.2rem,6vw,4.2rem);
+      letter-spacing:.18em;
+      text-shadow:0 0 18px rgba(0,255,240,.6),0 0 32px rgba(255,0,255,.35);
+    }
+
+    .glitch{position:relative}
+    .glitch::before,.glitch::after{
+      content:attr(data-text);
+      position:absolute;left:0;top:0;width:100%;opacity:.8
+    }
+    .glitch::before{color:var(--neon-pink);transform:translate(2px,-1px);mix-blend-mode:screen}
+    .glitch::after{color:var(--neon-cyan);transform:translate(-2px,1px);mix-blend-mode:screen}
+
+    nav{margin-top:30px;display:flex;justify-content:center;gap:22px}
+    nav a{color:var(--text);text-decoration:none;letter-spacing:.2em;position:relative}
+    nav a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--neon-cyan);box-shadow:var(--glow);transition:.3s}
+    nav a:hover::after{width:100%}
+
+    section{max-width:1100px;margin:0 auto;padding:80px 20px;position:relative;z-index:1}
+    section h2{text-align:center;margin-bottom:40px;letter-spacing:.3em;color:var(--neon-cyan);text-shadow:var(--glow)}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01)),var(--card);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 0 0 1px rgba(124,255,0,.15),0 12px 40px rgba(0,0,0,.5);
+      position:relative;overflow:hidden
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;inset:-1px;border-radius:18px;
+      background:linear-gradient(120deg,transparent 30%,rgba(0,255,240,.35),transparent 60%);
+      opacity:.35
+    }
+
+    .age{
+      font-size:3rem;font-weight:900;
+      background:linear-gradient(90deg,var(--neon-green),var(--neon-cyan));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      text-shadow:0 0 18px rgba(124,255,0,.6)
+    }
+
+    footer{text-align:center;padding:40px 20px;color:var(--muted);position:relative;z-index:1}
+  </style>
+</head>
+<body>
+
+  <!-- Neon Cursor -->
+  <div class="cursor"></div>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_2f2e0e33c7.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- ================== HEADER ================== -->
+  <header>
+    <span class="badge">CYBERPUNK LEGEND</span>
+    <h1 class="glitch" data-text="পাগলা দিশা দিদি">পাগলা দিশা দিদি</h1>
+    <p>৯৯ বছর বয়স, কিন্তু এখনো পুরো pagla ভাইব 🔥</p>
+
+    <nav>
+      <a href="#about">ABOUT</a>
+      <a href="#gallery">GALLERY</a>
+      <a href="#lore">LORE</a>
+    </nav>
+  </header>
+
+  <!-- ================== ABOUT ================== -->
+  <section id="about">
+    <h2>ABOUT</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>বয়স</h3>
+        <div class="age">৯৯</div>
+        <p>সময়কে হার মানানো এক জীবন্ত লেজেন্ড।</p>
+      </div>
+      <div class="card">
+        <h3>পাগলামি লেভেল</h3>
+        <p>১০০/১০০ — ম্যাট্রিক্স পর্যন্ত ভয় পায় 😵‍💫</p>
+      </div>
+      <div class="card">
+        <h3>এনার্জি সোর্স</h3>
+        <p>নিয়ন আলো, হাসি আর এক চিমটি পাগলামি।</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== GALLERY ================== -->
+  <section id="gallery">
+    <h2>GALLERY</h2>
+    <div class="gallery">
+      <div></div><div></div><div></div><div></div><div></div><div></div>
+    </div>
+  </section>
+
+  <!-- ================== LORE ================== -->
+  <section id="lore">
+    <h2>LORE</h2>
+    <p class="lore">
+      বলা হয়, ২০৯৯ সালের আগেই দিশা দিদি নিয়ন শহরের আত্মার সাথে মিশে গেছেন।<br>
+      রাতে যখন আলো ঝিলমিল করে, তখনই শোনা যায় তার হাসি।<br><br>
+      তিনি শুধু একজন মানুষ নন — তিনি একটি ভাইব, একটি লেজেন্ড, একটি Cyberpunk মিথ।
+    </p>
+  </section>
+
+  <footer>
+    © 2099 পাগলা দিশা দিদি • Cyberpunk Forever
+  </footer>
+
+  <!-- ================== SCRIPT ================== -->
+  <script>
+    const cursor=document.querySelector('.cursor');
+    document.addEventListener('mousemove',e=>{
+      cursor.style.left=e.clientX+'px';
+      cursor.style.top=e.clientY+'px';
+    });
+  </script>
+
+</body>
+</html>
